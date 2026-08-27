@@ -4,87 +4,55 @@ using UnityEngine.SceneManagement;
 
 public class HomeUIManager : MonoBehaviour
 {
-    [Header("Panels")]
-    [SerializeField] private GameObject settingsPanel;
+    public GameObject settingsPanel;
+    public GameObject settingsButton;
 
-    [Header("Buttons")]
-    [SerializeField] private GameObject settingsButton;
-    [SerializeField] private Toggle controllerModeToggle;
+    public Toggle controllerToggle;
 
-    [Header("Volume Sliders")]
-    [SerializeField] private Slider musicVolumeSlider;
-    [SerializeField] private Slider sfxVolumeSlider;
+    public Slider musicSlider;
+    public Slider sfxSlider;
 
-    private const string MUSIC_VOLUME_KEY = "MusicVolume";
-    private const string SFX_VOLUME_KEY = "SFXVolume";
-    private const string CONTROLLER_MODE_KEY = "ControllerMode";
+    const string musicKey = "MusicVolume";
+    const string sfxKey = "SFXVolume";
+    const string controllerKey = "ControllerMode";
 
-    private void Start()
+    void Start()
     {
-        if (settingsPanel != null)
-            settingsPanel.SetActive(false);
+        settingsPanel.SetActive(false);
 
-        if (settingsButton != null)
-            settingsButton.SetActive(true);
+        float music = PlayerPrefs.GetFloat(musicKey, 1f);
+        float sfx = PlayerPrefs.GetFloat(sfxKey, 1f);
+        int controller = PlayerPrefs.GetInt(controllerKey, 0);
 
-        float musicVolume =
-            PlayerPrefs.GetFloat(MUSIC_VOLUME_KEY, 1f);
+        musicSlider.value = music;
+        sfxSlider.value = sfx;
+        controllerToggle.isOn = controller == 1;
 
-        float sfxVolume =
-            PlayerPrefs.GetFloat(SFX_VOLUME_KEY, 1f);
-
-        if (musicVolumeSlider != null)
-        {
-            musicVolumeSlider.SetValueWithoutNotify(musicVolume);
-            musicVolumeSlider.onValueChanged.AddListener(SetMusicVolume);
-        }
-
-        if (sfxVolumeSlider != null)
-        {
-            sfxVolumeSlider.SetValueWithoutNotify(sfxVolume);
-            sfxVolumeSlider.onValueChanged.AddListener(SetSFXVolume);
-        }
+        musicSlider.onValueChanged.AddListener(SetMusic);
+        sfxSlider.onValueChanged.AddListener(SetSFX);
+        controllerToggle.onValueChanged.AddListener(SetController);
 
         if (GameAudioManager.Instance != null)
         {
-            GameAudioManager.Instance.SetMusicVolume(musicVolume);
-            GameAudioManager.Instance.SetSFXVolume(sfxVolume);
-        }
-
-        int controllerMode =
-            PlayerPrefs.GetInt(CONTROLLER_MODE_KEY, 0);
-
-        if (controllerModeToggle != null)
-        {
-            controllerModeToggle.SetIsOnWithoutNotify(
-                controllerMode == 1
-            );
-
-            controllerModeToggle.onValueChanged.AddListener(
-                SetControllerMode
-            );
+            GameAudioManager.Instance.SetMusicVolume(music);
+            GameAudioManager.Instance.SetSFXVolume(sfx);
         }
     }
 
-    public void OpenGameScene()
+    public void StartGame()
     {
+        Time.timeScale = 1f;
+
         if (GameAudioManager.Instance != null)
             GameAudioManager.Instance.PlayStartGame();
-
-        Time.timeScale = 1f;
 
         SceneManager.LoadScene("Game");
     }
 
     public void OpenSettings()
     {
-        if (settingsPanel == null)
-            return;
-
         settingsPanel.SetActive(true);
-
-        if (settingsButton != null)
-            settingsButton.SetActive(false);
+        settingsButton.SetActive(false);
 
         if (GameAudioManager.Instance != null)
             GameAudioManager.Instance.PlaySettingsOpen();
@@ -92,59 +60,48 @@ public class HomeUIManager : MonoBehaviour
 
     public void CloseSettings()
     {
-        if (settingsPanel == null)
-            return;
-
         settingsPanel.SetActive(false);
-
-        if (settingsButton != null)
-            settingsButton.SetActive(true);
+        settingsButton.SetActive(true);
 
         if (GameAudioManager.Instance != null)
             GameAudioManager.Instance.PlaySettingsClose();
     }
 
-    public void PlayButtonSound()
+    public void ButtonSound()
     {
         if (GameAudioManager.Instance != null)
             GameAudioManager.Instance.PlayButtonClick();
     }
 
-    public void SetMusicVolume(float value)
+    public void SetMusic(float value)
     {
+        PlayerPrefs.SetFloat(musicKey, value);
+        PlayerPrefs.Save();
+
         if (GameAudioManager.Instance != null)
             GameAudioManager.Instance.SetMusicVolume(value);
-
-        PlayerPrefs.SetFloat(MUSIC_VOLUME_KEY, value);
-        PlayerPrefs.Save();
     }
 
-    public void SetSFXVolume(float value)
+    public void SetSFX(float value)
     {
+        PlayerPrefs.SetFloat(sfxKey, value);
+        PlayerPrefs.Save();
+
         if (GameAudioManager.Instance != null)
             GameAudioManager.Instance.SetSFXVolume(value);
+    }
 
-        PlayerPrefs.SetFloat(SFX_VOLUME_KEY, value);
+    public void SetController(bool value)
+    {
+        PlayerPrefs.SetInt(controllerKey, value ? 1 : 0);
         PlayerPrefs.Save();
     }
 
-    private void OnDestroy()
+    void OnDestroy()
     {
-        if (musicVolumeSlider != null)
-            musicVolumeSlider.onValueChanged.RemoveListener(SetMusicVolume);
-
-        if (sfxVolumeSlider != null)
-            sfxVolumeSlider.onValueChanged.RemoveListener(SetSFXVolume);
-    }
-
-    public void SetControllerMode(bool cursorMode)
-    {
-        PlayerPrefs.SetInt(
-            CONTROLLER_MODE_KEY,
-            cursorMode ? 1 : 0
-        );
-
-        PlayerPrefs.Save();
+        musicSlider.onValueChanged.RemoveListener(SetMusic);
+        sfxSlider.onValueChanged.RemoveListener(SetSFX);
+        controllerToggle.onValueChanged.RemoveListener(SetController);
     }
 }
 

@@ -2,48 +2,33 @@ using UnityEngine;
 
 public class LoopingBackground : MonoBehaviour
 {
-    [Header("References")]
-    [SerializeField] private OceanScroller oceanScroller;
+    public OceanScroller ocean;
 
-    [Header("Loop Settings")]
-    [SerializeField] private float panelWidth = 18f;
-    [SerializeField] private int totalPanels = 3;
+    public float width = 18f;
+    public int panels = 3;
 
-    private Camera mainCamera;
+    Camera cam;
 
-    private void Awake()
+    void Awake()
     {
-        mainCamera = Camera.main;
+        cam = Camera.main;
     }
 
-    private void Update()
+    void Update()
     {
-        if (oceanScroller == null || mainCamera == null)
+        if (ocean == null || cam == null)
             return;
 
-        Move();
-        CheckForLoop();
-    }
+        transform.position += ocean.GetMovementThisFrame();
 
-    private void Move()
-    {
-        transform.position += oceanScroller.GetMovementThisFrame();
-    }
+        float left = cam.transform.position.x -
+                     cam.orthographicSize * cam.aspect;
 
-    private void CheckForLoop()
-    {
-        float cameraLeftEdge =
-            mainCamera.transform.position.x
-            - mainCamera.orthographicSize * mainCamera.aspect;
+        float right = transform.position.x + width / 2f;
 
-        float panelRightEdge =
-            transform.position.x
-            + panelWidth * 0.5f;
-
-        if (panelRightEdge < cameraLeftEdge)
+        if (right < left)
         {
-            transform.position +=
-                Vector3.right * panelWidth * totalPanels;
+            transform.position += Vector3.right * width * panels;
         }
     }
 }

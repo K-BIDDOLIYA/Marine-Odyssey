@@ -23,8 +23,6 @@ public class KrakenEvent : MonoBehaviour
 
     [Header("UI")]
     [SerializeField] private TMP_Text krakenWarning;
-    [SerializeField] private Image oceanDarkener;
-    [SerializeField] private float darknessAlpha = 0.45f;
 
     [Header("Attack Height")]
     [SerializeField] private float minimumTargetY = -0.5f;
@@ -38,7 +36,6 @@ public class KrakenEvent : MonoBehaviour
     private Camera mainCamera;
     private VerticalCameraFollow cameraFollow;
     private SeaMineEvent seaMineEvent;
-    private bool oceanDarkened = false;
 
     private void Start()
     {
@@ -70,8 +67,6 @@ public class KrakenEvent : MonoBehaviour
         IsKrakenActive = true;
         ClearOtherThreats();
 
-        oceanDarkened = true;
-
         FindFirstObjectByType<GameUIManager>()
             .ShowWarning("⚠ TITAN HAND");
 
@@ -79,10 +74,6 @@ public class KrakenEvent : MonoBehaviour
 
     krakenWarning.gameObject.SetActive(false);
 
-
-        //--------------------------------------------------
-        // Attack all tentacles together
-        //--------------------------------------------------
 
         float topOfScreen =
             mainCamera.transform.position.y +
@@ -106,10 +97,6 @@ public class KrakenEvent : MonoBehaviour
             yield return new WaitForSeconds(2.5f);
         }
 
-        //--------------------------------------------------
-        // Wait until every tentacle has finished extending
-        //--------------------------------------------------
-
         yield return new WaitUntil(AllTentaclesExtended);
 
         yield return new WaitForSeconds(1f);
@@ -119,30 +106,15 @@ public class KrakenEvent : MonoBehaviour
             tentacle.RotateTentacle();
 }
 
-        //--------------------------------------------------
-        // Wait before rotating
-        //--------------------------------------------------
 
         yield return new WaitForSeconds(rotateDelay);
-
-        //--------------------------------------------------
-        // Rotate all together
-        //--------------------------------------------------
 
         foreach (KrakenTentacle tentacle in tentacles)
         {
             tentacle.RotateTentacle();
         }
 
-        //--------------------------------------------------
-        // Let player navigate between them
-        //--------------------------------------------------
-
         yield return new WaitForSeconds(eventDuration);
-
-        //--------------------------------------------------
-        // Retract together
-        //--------------------------------------------------
 
         foreach (KrakenTentacle tentacle in tentacles)
         {
@@ -150,10 +122,6 @@ public class KrakenEvent : MonoBehaviour
         }
 
         yield return new WaitUntil(AllTentaclesHidden);
-
-        RestoreOcean();
-
-        oceanDarkened = false;
 
         IsKrakenActive = false;
 
@@ -180,18 +148,6 @@ public class KrakenEvent : MonoBehaviour
         }
 
         return true;
-    }
-
-    private void darkenOcean()
-    {
-        
-    }
-
-    private void RestoreOcean()
-    {
-        Color c = oceanDarkener.color;
-        c.a = 0f;
-        oceanDarkener.color = c;
     }
 
     private void SetNextCooldown()

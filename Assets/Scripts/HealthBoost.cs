@@ -2,39 +2,32 @@ using UnityEngine;
 
 public class HealthBoost : MonoBehaviour
 {
-    [Header("Health Boost")]
-    public int healthAmount = 300;
-
-    [Header("Movement")]
+    public int health = 300;
     public float speed = 3f;
 
-    private void Update()
+    void Update()
     {
         transform.Translate(Vector2.left * speed * Time.deltaTime);
 
         if (transform.position.x <= -20f)
-        {
             Destroy(gameObject);
-        }
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    void OnTriggerEnter2D(Collider2D col)
     {
-        if (collision.CompareTag("Player"))
+        if (!col.CompareTag("Player"))
+            return;
+
+        SubmarineHealth player = col.GetComponent<SubmarineHealth>();
+
+        if (player != null)
         {
-            SubmarineHealth submarineHealth = collision.GetComponent<SubmarineHealth>();
+            player.Heal(health);
 
-            if (submarineHealth != null)
-            {
-                submarineHealth.Heal(healthAmount);
-
-                if (GameAudioManager.Instance != null)
-                {
-                    GameAudioManager.Instance.PlayHeal();
-                }
-            }
-
-            Destroy(gameObject);
+            if (GameAudioManager.Instance != null)
+                GameAudioManager.Instance.PlayHeal();
         }
+
+        Destroy(gameObject);
     }
 }

@@ -409,8 +409,8 @@ Transform:
   m_GameObject: {fileID: 223053088}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.45, y: -6.3629, z: 5}
-  m_LocalScale: {x: 3.6949189, y: 6.9115224, z: 1}
+  m_LocalPosition: {x: 25, y: -4, z: 5}
+  m_LocalScale: {x: 10, y: 7, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 371566170}
@@ -427,9 +427,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 734ffc93a9ebfd3418b4934ed0ddce42, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LoopingBackground
-  oceanScroller: {fileID: 450241054}
-  panelWidth: 78
-  totalPanels: 2
+  ocean: {fileID: 450241054}
+  width: 100
+  panels: 2
 --- !u!212 &223053091
 SpriteRenderer:
   serializedVersion: 2
@@ -479,7 +479,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: -9
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 1358669258025683016, guid: 0e74676f4c2e4c7469eec1677fff9afc, type: 3}
+  m_Sprite: {fileID: 1887719883196316334, guid: 8f18c5ec871ce38479aaa0bf422cb6ce, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -891,85 +891,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0.0000095367, y: -0.0000085831}
   m_SizeDelta: {x: 334.245, y: 74.452}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!1 &344414271
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 344414274}
-  - component: {fileID: 344414273}
-  - component: {fileID: 344414272}
-  m_Layer: 0
-  m_Name: EventSystem
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &344414272
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 344414271}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 01614664b831546d2ae94a42149d80ac, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Unity.InputSystem::UnityEngine.InputSystem.UI.InputSystemUIInputModule
-  m_SendPointerHoverToParent: 1
-  m_MoveRepeatDelay: 0.5
-  m_MoveRepeatRate: 0.1
-  m_XRTrackingOrigin: {fileID: 0}
-  m_ActionsAsset: {fileID: -944628639613478452, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
-  m_PointAction: {fileID: -1654692200621890270, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
-  m_MoveAction: {fileID: -8784545083839296357, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
-  m_SubmitAction: {fileID: 392368643174621059, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
-  m_CancelAction: {fileID: 7727032971491509709, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
-  m_LeftClickAction: {fileID: 3001919216989983466, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
-  m_MiddleClickAction: {fileID: -2185481485913320682, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
-  m_RightClickAction: {fileID: -4090225696740746782, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
-  m_ScrollWheelAction: {fileID: 6240969308177333660, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
-  m_TrackedDevicePositionAction: {fileID: 6564999863303420839, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
-  m_TrackedDeviceOrientationAction: {fileID: 7970375526676320489, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
-  m_DeselectOnBackgroundClick: 1
-  m_PointerBehavior: 0
-  m_CursorLockBehavior: 0
-  m_ScrollDeltaPerTick: 6
---- !u!114 &344414273
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 344414271}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 76c392e42b5098c458856cdf6ecaaaa1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.EventSystems.EventSystem
-  m_FirstSelected: {fileID: 0}
-  m_sendNavigationEvents: 1
-  m_DragThreshold: 10
---- !u!4 &344414274
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 344414271}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.068573, y: -0.03855896, z: 0}
-  m_LocalScale: {x: 1.0855184, y: 1.0855184, z: 1.0855184}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &365887450
 GameObject:
   m_ObjectHideFlags: 0
@@ -1230,7 +1151,6 @@ Transform:
   - {fileID: 241641479}
   - {fileID: 949566120}
   - {fileID: 656073533}
-  - {fileID: 853850693}
   - {fileID: 1857084109}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1278,7 +1198,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a94fea2a0ffa08840b2e2184612f62a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::OceanScroller
-  scrollSpeed: 3
+  speed: 3
 --- !u!1 &487533991
 GameObject:
   m_ObjectHideFlags: 0
@@ -1912,10 +1832,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::VerticalCameraFollow
   target: {fileID: 522056153}
-  smoothTime: 0.18
+  smooth: 0.18
   minY: -6
   maxY: 7
-  shakeMagnitude: 0.08
+  shake: 0.08
 --- !u!1 &522056152
 GameObject:
   m_ObjectHideFlags: 0
@@ -2071,8 +1991,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9c041950798d2f45a3b356c81bedee2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SubmarineHide
-  hideZoneLayerName: HideZone
-  isHidden: 0
+  hideLayer: HideZone
+  hidden: 0
 --- !u!114 &522056159
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3267,12 +3187,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 853850692}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 444718081}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &853850694
 MonoBehaviour:
@@ -6097,7 +6017,7 @@ Transform:
   m_GameObject: {fileID: 1528166576}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 16, y: 34.1, z: 5}
+  m_LocalPosition: {x: 35.5, y: 37.2, z: 5}
   m_LocalScale: {x: 43.247158, y: 4.0145164, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -6284,8 +6204,6 @@ MonoBehaviour:
   rotateDelay: 0.1
   eventDuration: 5
   krakenWarning: {fileID: 1014558901}
-  oceanDarkener: {fileID: 0}
-  darknessAlpha: 0.45
   minimumTargetY: -6
   maximumTargetY: -26
 --- !u!1 &1591338822
@@ -6315,8 +6233,8 @@ Transform:
   m_GameObject: {fileID: 1591338822}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 60.99, y: -24.3137, z: -1}
-  m_LocalScale: {x: 3.355545, y: 2.6105447, z: 1}
+  m_LocalPosition: {x: 80.5, y: -22.2, z: -1}
+  m_LocalScale: {x: 3.355545, y: 4.1003194, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 527326511}
@@ -6334,9 +6252,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 734ffc93a9ebfd3418b4934ed0ddce42, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LoopingBackground
-  oceanScroller: {fileID: 450241054}
-  panelWidth: 42
-  totalPanels: 3
+  ocean: {fileID: 0}
+  width: 18
+  panels: 3
 --- !u!212 &1591338825
 SpriteRenderer:
   serializedVersion: 2
@@ -6701,8 +6619,8 @@ Transform:
   m_GameObject: {fileID: 1733550102}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -23.1475, y: -24.3138, z: -1}
-  m_LocalScale: {x: 3.355545, y: 2.6451924, z: 1}
+  m_LocalPosition: {x: -3.6, y: -23.2, z: -1}
+  m_LocalScale: {x: 3.355545, y: 3.4044893, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 106818186}
@@ -6720,9 +6638,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 734ffc93a9ebfd3418b4934ed0ddce42, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LoopingBackground
-  oceanScroller: {fileID: 450241054}
-  panelWidth: 42
-  totalPanels: 3
+  ocean: {fileID: 0}
+  width: 18
+  panels: 3
 --- !u!212 &1733550105
 SpriteRenderer:
   serializedVersion: 2
@@ -7136,8 +7054,8 @@ Transform:
   m_GameObject: {fileID: 1807565339}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 78.25, y: -6.3989, z: 5}
-  m_LocalScale: {x: 3.6949189, y: 6.9772267, z: 1}
+  m_LocalPosition: {x: 127, y: -4, z: 5}
+  m_LocalScale: {x: 10, y: 7, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 371566170}
@@ -7154,9 +7072,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 734ffc93a9ebfd3418b4934ed0ddce42, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LoopingBackground
-  oceanScroller: {fileID: 450241054}
-  panelWidth: 78
-  totalPanels: 2
+  ocean: {fileID: 450241054}
+  width: 100
+  panels: 2
 --- !u!212 &1807565342
 SpriteRenderer:
   serializedVersion: 2
@@ -7206,7 +7124,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: -9
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 1358669258025683016, guid: 0e74676f4c2e4c7469eec1677fff9afc, type: 3}
+  m_Sprite: {fileID: 1887719883196316334, guid: 8f18c5ec871ce38479aaa0bf422cb6ce, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -7292,8 +7210,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a783e98332cf12a4f8f49681e05582e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HealthSpawner
-  healthBoostPrefab: {fileID: 3545094895158806655, guid: cbaea5e166d4fd94fb046f48ae7d56c5, type: 3}
-  spawnInterval: 60
+  healthPrefab: {fileID: 0}
+  spawnTime: 5
   minX: 10
   maxX: 20
   minY: -10
@@ -7814,8 +7732,8 @@ Transform:
   m_GameObject: {fileID: 1912633787}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 18.906, y: -24.1993, z: -1}
-  m_LocalScale: {x: 3.355545, y: 2.5907152, z: 1}
+  m_LocalPosition: {x: 38.4, y: -23.2, z: -1}
+  m_LocalScale: {x: 3.355545, y: 3.5035877, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1803330831}
@@ -7833,9 +7751,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 734ffc93a9ebfd3418b4934ed0ddce42, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LoopingBackground
-  oceanScroller: {fileID: 450241054}
-  panelWidth: 42
-  totalPanels: 3
+  ocean: {fileID: 0}
+  width: 18
+  panels: 3
 --- !u!212 &1912633790
 SpriteRenderer:
   serializedVersion: 2
@@ -8437,5 +8355,5 @@ SceneRoots:
   - {fileID: 444718081}
   - {fileID: 619394802}
   - {fileID: 1726672827}
-  - {fileID: 344414274}
   - {fileID: 1603337504}
+  - {fileID: 853850693}

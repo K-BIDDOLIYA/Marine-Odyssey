@@ -3,67 +3,48 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))]
 public class StarfishProjectile : MonoBehaviour
 {
-    [Header("Movement")]
-    [SerializeField] private float minRotationSpeed = 540f;
-    [SerializeField] private float maxRotationSpeed = 1080f;
+    public float minRotSpeed = 540f;
+    public float maxRotSpeed = 1080f;
 
+    public float destroyDistance = 3f;
 
-    [Header("Lifetime")]
-    [SerializeField] private float destroyDistance = 3f;
-    [SerializeField] private float minMoveSpeed = 10f;
-    [SerializeField] private float maxMoveSpeed = 16f;
+    public float minSpeed = 10f;
+    public float maxSpeed = 16f;
 
-    private float moveSpeed;
-    private Rigidbody2D rb;
-    private Camera mainCamera;
+    float speed;
+    float rotSpeed;
 
-    private float rotationSpeed;
-    private void Awake()
+    Rigidbody2D rb;
+    Camera cam;
+
+    void Start()
     {
-        rotationSpeed = Random.Range(minRotationSpeed, maxRotationSpeed);
+        rb = GetComponent<Rigidbody2D>();
+        cam = Camera.main;
+
+        speed = Random.Range(minSpeed, maxSpeed);
+        rotSpeed = Random.Range(minRotSpeed, maxRotSpeed);
 
         if (Random.value < 0.5f)
-            rotationSpeed *= -1f;
-          
-        moveSpeed = Random.Range(minMoveSpeed, maxMoveSpeed);
-        rb = GetComponent<Rigidbody2D>();
-        mainCamera = Camera.main;
+            rotSpeed = -rotSpeed;
     }
 
-    private void FixedUpdate()
+    void FixedUpdate()
     {
-        Move();
-
-        CheckLifetime();
-    }
-
-    private void Move()
-    {
-        Vector2 movement =
-            Vector2.left *
-            moveSpeed *
-            Time.fixedDeltaTime;
-
-        rb.MovePosition(rb.position + movement);
+        rb.MovePosition(
+            rb.position + Vector2.left * speed * Time.fixedDeltaTime
+        );
 
         rb.MoveRotation(
-            rb.rotation +
-            rotationSpeed *
-            Time.fixedDeltaTime
+            rb.rotation + rotSpeed * Time.fixedDeltaTime
         );
-    }
 
-    private void CheckLifetime()
-    {
-        float leftEdge =
-            mainCamera.transform.position.x
-            - mainCamera.orthographicSize
-            * mainCamera.aspect;
+        float edge = cam.transform.position.x -
+                     cam.orthographicSize * cam.aspect;
 
-        if (transform.position.x < leftEdge - destroyDistance)
+        if (transform.position.x < edge - destroyDistance)
         {
-            GameUIManager ui =
-                FindFirstObjectByType<GameUIManager>();
+            GameUIManager ui = FindFirstObjectByType<GameUIManager>();
 
             if (ui != null)
                 ui.AddThreatScore(1);
@@ -72,18 +53,18 @@ public class StarfishProjectile : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
+    void OnTriggerEnter2D(Collider2D col)
     {
-        if (!other.CompareTag("Player"))
+        if (!col.CompareTag("Player"))
             return;
 
-        other.GetComponent<SubmarineHealth>()
-            .TakeDamage(60);
+        SubmarineHealth player = col.GetComponent<SubmarineHealth>();
+
+        if (player != null)
+            player.TakeDamage(60);
 
         if (GameAudioManager.Instance != null)
-        {
             GameAudioManager.Instance.PlayStarfishHit();
-        }
     }
 }
 

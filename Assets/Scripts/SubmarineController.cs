@@ -173,7 +173,7 @@ public class SubmarineController : MonoBehaviour
         }
         else
         {
-            Cursor.visible = false;
+            Cursor.visible = true;
             Cursor.lockState = CursorLockMode.Confined;
         }
     }

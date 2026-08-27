@@ -2,130 +2,84 @@ using UnityEngine;
 
 public class VerticalCameraFollow : MonoBehaviour
 {
-    [Header("Target")]
-    [SerializeField] private Transform target;
+    public Transform target;
 
-    [Header("Follow")]
-    [SerializeField] private float smoothTime = 0.18f;
+    public float smooth = 0.18f;
+    public float minY = -3f;
+    public float maxY = 3f;
+    public float shake = 0.08f;
 
-    [Header("Camera Y Limits")]
-    [SerializeField] private float minY = -3f;
-    [SerializeField] private float maxY = 3f;
+    int shakes;
+    float vel;
 
-    [Header("Shake")]
-    [SerializeField] private float shakeMagnitude = 0.08f;
-
-    private int activeShakes = 0;
-
-    private float velocityY;
-
-    // Background mode
-    private bool backgroundMode = false;
-    private float backgroundY;
+    bool bgMode;
+    float bgY;
 
     public void StartShake()
     {
-        activeShakes++;
+        shakes++;
     }
 
     public void StopShake()
     {
-        activeShakes = Mathf.Max(0, activeShakes - 1);
-    }
+        shakes--;
 
-    // =========================================================
-    // BACKGROUND MODE
-    // =========================================================
+        if (shakes < 0)
+            shakes = 0;
+    }
 
     public void EnableBackgroundMode()
     {
-        backgroundMode = true;
-
-        // Completely freeze the camera's Y position
-        // at the position it currently has.
-        backgroundY = transform.position.y;
-
-        // Stop SmoothDamp from trying to move the camera.
-        velocityY = 0f;
+        bgMode = true;
+        bgY = transform.position.y;
+        vel = 0f;
     }
 
     public void DisableBackgroundMode()
     {
-        backgroundMode = false;
-
-        velocityY = 0f;
+        bgMode = false;
+        vel = 0f;
     }
 
-    // =========================================================
-    // CAMERA UPDATE
-    // =========================================================
-
-    private void LateUpdate()
+    void LateUpdate()
     {
-        // -----------------------------------------------------
-        // BACKGROUND MODE
-        // -----------------------------------------------------
-
-        if (backgroundMode)
+        if (bgMode)
         {
-            Vector3 fixedPosition = new Vector3(
-                transform.position.x,
-                backgroundY,
-                transform.position.z
-            );
+            Vector3 pos = transform.position;
+            pos.y = bgY;
 
-            // Still allow camera shake during events.
-            if (activeShakes > 0)
+            if (shakes > 0)
             {
-                Vector2 offset =
-                    Random.insideUnitCircle * shakeMagnitude;
-
-                fixedPosition +=
-                    new Vector3(offset.x, offset.y, 0f);
+                Vector2 offset = Random.insideUnitCircle * shake;
+                pos += new Vector3(offset.x, offset.y, 0f);
             }
 
-            transform.position = fixedPosition;
-
+            transform.position = pos;
             return;
         }
-
-        // -----------------------------------------------------
-        // NORMAL GAME MODE
-        // -----------------------------------------------------
 
         if (target == null)
             return;
 
-        float targetY = Mathf.Clamp(
-            target.position.y,
-            minY,
-            maxY
-        );
+        float y = Mathf.Clamp(target.position.y, minY, maxY);
 
-        float smoothY = Mathf.SmoothDamp(
+        y = Mathf.SmoothDamp(
             transform.position.y,
-            targetY,
-            ref velocityY,
-            smoothTime
+            y,
+            ref vel,
+            smooth
         );
 
-        Vector3 finalPosition = new Vector3(
-            transform.position.x,
-            smoothY,
-            transform.position.z
-        );
+        Vector3 newPos = transform.position;
+        newPos.y = y;
 
-        // Camera shake
-        if (activeShakes > 0)
+        if (shakes > 0)
         {
-            Vector2 offset =
-                Random.insideUnitCircle * shakeMagnitude;
-
-            finalPosition +=
-                new Vector3(offset.x, offset.y, 0f);
+            Vector2 offset = Random.insideUnitCircle * shake;
+            newPos += new Vector3(offset.x, offset.y, 0f);
         }
 
-        transform.position = finalPosition;
+        transform.position = newPos;
     }
 }
 

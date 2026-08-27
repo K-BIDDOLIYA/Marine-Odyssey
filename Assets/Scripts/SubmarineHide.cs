@@ -2,50 +2,50 @@ using UnityEngine;
 
 public class SubmarineHide : MonoBehaviour
 {
-    [Header("Hide Zone")]
-    [SerializeField] private string hideZoneLayerName = "HideZone";
+    public string hideLayer = "HideZone";
 
-    [Header("Debug (Read Only)")]
-    [SerializeField] private bool isHidden;
+    [SerializeField] bool hidden;
 
-    private int hideZoneCount;
-    private int hideZoneLayer;
+    int zones;
+    int layer;
 
-    public bool IsHidden => isHidden;
+    public bool IsHidden => hidden;
 
-    private void Awake()
+    void Awake()
     {
-        hideZoneLayer = LayerMask.NameToLayer(hideZoneLayerName);
+        layer = LayerMask.NameToLayer(hideLayer);
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
+    void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.layer != hideZoneLayer)
+        if (other.gameObject.layer != layer)
             return;
 
-        hideZoneCount++;
-
-        UpdateHiddenState();
+        zones++;
+        UpdateHide();
     }
 
-    private void OnTriggerExit2D(Collider2D other)
+    void OnTriggerExit2D(Collider2D other)
     {
-        if (other.gameObject.layer != hideZoneLayer)
+        if (other.gameObject.layer != layer)
             return;
 
-        hideZoneCount = Mathf.Max(0, hideZoneCount - 1);
+        zones--;
 
-        UpdateHiddenState();
+        if (zones < 0)
+            zones = 0;
+
+        UpdateHide();
     }
 
-    private void UpdateHiddenState()
+    void UpdateHide()
     {
-        isHidden = hideZoneCount > 0;
+        hidden = zones > 0;
     }
 
-    private void OnDrawGizmosSelected()
+    void OnDrawGizmosSelected()
     {
-        Gizmos.color = isHidden ? Color.green : Color.red;
+        Gizmos.color = hidden ? Color.green : Color.red;
         Gizmos.DrawWireSphere(transform.position, 0.5f);
     }
 }

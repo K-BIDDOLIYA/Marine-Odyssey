@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 6b4ada4222303f748a311ac49b503381
+guid: 8f18c5ec871ce38479aaa0bf422cb6ce
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 4196262378752415973
-    second: ppp_0
+      213: 1887719883196316334
+    second: underwater tileable_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -126,13 +126,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: ppp_0
+      name: underwater tileable_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 2172
-        height: 724
+        width: 1024
+        height: 768
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -141,8 +141,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 5e89fd5966e1c3a30800000000000000
-      internalID: 4196262378752415973
+      spriteID: eaabb517b37823a10800000000000000
+      internalID: 1887719883196316334
       vertices: []
       indices: 
       edges: []
@@ -161,7 +161,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      ppp_0: 4196262378752415973
+      underwater tileable_0: 1887719883196316334
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
