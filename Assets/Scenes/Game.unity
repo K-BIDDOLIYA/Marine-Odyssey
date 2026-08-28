@@ -6113,8 +6113,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: efd5c2e436d63a14a818bbffa521e422, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::KrakenEvent
-  minimumCooldown: 5
-  maximumCooldown: 7
+  minimumCooldown: 50
+  maximumCooldown: 70
   tentacles:
   - {fileID: 8774616}
   - {fileID: 374003090}
